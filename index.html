@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>&#128123;</title>
+    <style>
+/*
+    Josh's Custom CSS Reset
+    https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*,*::before,*::after{box-sizing:border-box}*{margin:0}html,body{height:100%}body{line-height:1.5;-webkit-font-smoothing:antialiased}img,picture,video,canvas,svg{display:block;max-width:100%}input,button,textarea,select{font:inherit}p,h1,h2,h3,h4,h5,h6{overflow-wrap:break-word}#root,#__next{isolation:isolate}
+
+        body {
+            background-color: #fafafa;
+        }
+
+        .content {
+            border: 1px;
+            padding: 30px;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: .8em;
+        }
+
+        button {
+            border: solid 1px #333;
+            padding: 10px 30px;
+        }
+
+        #nanyaForm {
+            padding: 15px 0px;
+        }
+
+        #password {
+            font-size: 1.2em;
+            width: 50%;
+        }
+
+        @media only screen and (max-width: 600px) {
+            #password {
+                width: 70%;
+            }
+
+            span {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>なんや&#128545;</h1>
+        <p><span>【shojin_pro さん専用】</span>パスワード入力フォーム</p>
+        <form id="nanyaForm" method="get" autocomplete="off" action="./nanya.html">
+            <label for="password">パスワード</label>
+            <input id="password" type="text" name="password" maxlength="100">
+            <label for="seeCheckbox"><input id="seeCheckbox" type="checkbox">パスワードを表示する</label>
+            <button id="btn">決定</button>
+        </form>
+    </div>
+    </div>
+    <script>
+        const btn = document.getElementById("btn");
+        const password = document.getElementById("password");
+        const see = document.getElementById("seeCheckbox");
+        const nanya = "なんや".repeat(50);
+        function eventFunc() {
+            btn.disabled = !password.value;
+            if (!see.checked) {
+                password.value = String.fromCodePoint(128545).repeat([...password.value].length);
+            }
+        }
+        see.addEventListener("click", function () {
+            if (see.checked) {
+                password.value = nanya.slice(0, [...password.value].length);
+            } else {
+                password.value = String.fromCodePoint(128545).repeat([...password.value].length);
+            }
+        });
+        window.addEventListener("pageshow", eventFunc);
+
+        let isComposing = false;
+        password.addEventListener('compositionstart', (e) => {
+            isComposing = true;
+        });
+        password.addEventListener('input', (e) => {
+            if (!isComposing) {
+                eventFunc();
+            }
+        });
+        password.addEventListener('compositionend', (e) => {
+            eventFunc();
+            isComposing = false;
+        });        
+    </script>
+</body>
+
+</html>
