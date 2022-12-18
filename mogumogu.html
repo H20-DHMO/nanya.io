@@ -428,7 +428,7 @@
               const healthyCnt = cnt
               var {ateStr, cnt} = eatOfCodePoints(ateStr, greasyFoodSet)
               const greasyCnt = cnt
-              if (cnt==0){
+              if (healthyCnt+greasyCnt==0){
                 btn.disabled = false
                 new_element.classList.add('fadeOut');
                 setTimeout(function(){         
